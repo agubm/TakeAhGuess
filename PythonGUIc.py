@@ -5,11 +5,9 @@ Created on Mon Jan 25 18:36:35 2021
 @author: aguboshimec
 """
 import tkinter as tk
-import tkinter.tix 
 import sys
 import time
 import numpy as np
-from tkinter import messagebox
 from random import randint
 from PIL import Image, ImageTk
 from tkinter import *
@@ -17,13 +15,12 @@ from tkinter import filedialog, Tk, Button, Canvas
 import tkinter.font as font
 
 
-root  = tix.Tk()
-root.title("#Take-Ah-Guess") #name of the window
-root.geometry('600x400') #size of window
-root.iconbitmap('WhatsAppDP.ico') #imports the logo
+root  = Tk()
+root.title("#Take-A-Guess")
+root.geometry('600x400')
 root.resizable(False, False) #makes window non-resizable
 
-display = Entry(root, state=DISABLED) # make the window size unchangeable
+display = Entry(root, state=DISABLED)
 
 
 def About():
@@ -44,7 +41,7 @@ def Game_Guide():
                                 ' \n' )
 
 def on_closing():
-    if messagebox.askokcancel("Exit", "Do you want to exit Game?",  icon = 'warning'):
+    if messagebox.askokcancel("Exit", "Do you want to exit App?",  icon = 'warning'):
         root.destroy()
         sys.exit()
 
@@ -125,6 +122,7 @@ def press():
     b9.grid(row =7 , column = 2)
 
 press()
+
 
 t = 3
 def delete_entry():
@@ -214,8 +212,6 @@ def startgame():
 
    
 
-# create balloon (tooltip) instance
-balloon = tkinter.tix.Balloon(root)
     
 #button to continue:
 button1 = Button(root, text="Continue",bg='#0052cc', fg='#ffffff', command = delete_entry)
@@ -226,12 +222,10 @@ button2 = Button(root, text=">> start >>",fg='#ffffff', bg='#14941C', command = 
 button2.place(x = 280, y= 60, anchor=CENTER, height=30, width=100)
 
 
-# bind balloon to buttons
-balloon.bind_widget(button2, balloonmsg='start new game')
 
 menubar = tk.Menu(root)
 filemenu = Menu(menubar, tearoff=0)
-filemenu.add_command(label="New Game", command= startgame)
+filemenu.add_command(label="New_game", command= startgame)
 filemenu.add_separator()
 filemenu.add_command(label="Quit", command=close_window)
 
@@ -240,8 +234,8 @@ filemenu.add_command(label="Quit", command=close_window)
 menubar.add_cascade(label="File", menu=filemenu)
     
 submenu = tk.Menu(menubar)
-submenu.add_radiobutton(label="easy",value = 2, command = lambda: clicked(2)) #max value intiated to 2-1
-submenu.add_radiobutton(label="medium", value = 5, command = lambda: clicked(5)) #max value intiated to 5-1
+sb1 = submenu.add_radiobutton(label="easy",value = 2, command = lambda: clicked(2)) #max value intiated to 2-1
+sb2 = submenu.add_radiobutton(label="medium", value = 5, command = lambda: clicked(5)) #max value intiated to 5-1
 submenu.add_radiobutton(label="hard",  value = 10, command = lambda: clicked(10)) #max value intiated to 10-1
 
 menubar.add_cascade(label="Level", menu=submenu)
@@ -261,6 +255,7 @@ root.config(menu=menubar)
 
 clicked(2) # this make the difficult level to  be at easy, ie. value = 5
 
-root.mainloop() #end of window
+
+root.mainloop()
 
 

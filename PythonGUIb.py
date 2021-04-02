@@ -5,58 +5,45 @@ Created on Mon Jan 25 18:36:35 2021
 @author: aguboshimec
 """
 import tkinter as tk
-import tkinter.tix 
 import sys
 import time
 import numpy as np
-from tkinter import messagebox
 from random import randint
 from PIL import Image, ImageTk
 from tkinter import *
+from tkinter import messagebox
 from tkinter import filedialog, Tk, Button, Canvas
 import tkinter.font as font
 
 
-root  = tix.Tk()
-root.title("#Take-Ah-Guess") #name of the window
-root.geometry('600x400') #size of window
-root.iconbitmap('WhatsAppDP.ico') #imports the logo
+root  = Tk()
+root.title("#Take-Ah-Guess")
+#root.iconbitmap('WhatsAppDP.ico') #imports the logo
+root.geometry('600x400')
 root.resizable(False, False) #makes window non-resizable
 
-display = Entry(root, state=DISABLED) # make the window size unchangeable
+display = Entry(root, state=DISABLED)
 
 
-def About():
-    tk.messagebox.showinfo("About", 
-                                'You hopefully had fun\n'
-                                ' \n'
-                                'Kindly send your feedbacks to:\n'
+def donothing():
+    tk.messagebox.showinfo("About", 'Kindly send your feedback\n'
                                 'e.agub@aol.com\n'
-                                'Thank you.\n' )
-    
-def Game_Guide():
-    tk.messagebox.showinfo("Game Guide ", 
-                                'Hints: Simply guess a number: \n'
-                                ' \n'
-                                ' easy: between 0 & 1 \n'
-                                ' meduim: between 0 & 4 \n'
-                                ' hard: between 0 & 9 \n'
-                                ' \n' )
+                                'Thank you. You hopefully had fun\n')
 
 def on_closing():
-    if messagebox.askokcancel("Exit", "Do you want to exit Game?",  icon = 'warning'):
+    if messagebox.askokcancel("Exit", "Do you want to exit App?",  icon = 'warning'):
         root.destroy()
         sys.exit()
 
 root.protocol("WM_DELETE_WINDOW", on_closing)
 
 def close_window(): 
-    MsgBox = tk.messagebox.askquestion ('Quit?',"Do you want to quit Game?")
+    MsgBox = tk.messagebox.askquestion ('Quit?',"Do you want to quit App?")
     if MsgBox == 'yes':
        root.destroy()
        sys.exit()
     else:
-        tk.messagebox.showinfo('Back to Game',' You will return to the main window')  
+        tk.messagebox.showinfo('Back to Application',' You will return to the main application window')  
 
 #add textbox: 
 myentry = Entry(root, text = "?", justify= CENTER, width = 3, font = ('Helvetica', 50), bg="#E3E7FA")
@@ -75,7 +62,7 @@ timer_box.place(x = 450, y= 40)
 timer_box.bind("<Key>", lambda e: "break") #disables keyboard strokes
 
 
-scores = Label(root, justify= CENTER, width = 8, font = ('Helvetica', 18), bg = '#EEEEEF')
+scores = Label(root, justify= CENTER, width = 8, font = ('Helvetica', 20), bg = '#EEEEEF')
 scores.place(x = 450, y= 300)
 scores.bind("<Key>", lambda e: "break") #disables keyboard strokes
 
@@ -126,6 +113,7 @@ def press():
 
 press()
 
+
 t = 3
 def delete_entry():
     global t
@@ -154,22 +142,17 @@ def countdown():
         mydisplay.config(text = random_number)
         
         number = myentry.get()
-        if len(myentry.get()) == 0:  # empty!
-            number = int(100)
-        elif len(myentry.get()) > 0:
-            number = int(myentry.get())
-            #print (number)
-        #print (len(myentry.get()))
+        number = int( number, base = 10)
         
         
         if number == random_number:
             point = point + 5
             
             scores.config(text = ("{}{}".format('Points: ', point)), fg = 'black')
-            #print (point) 
+            print (point) 
         else:
             point = point
-            #print(point)  
+            print(point)  
         
        
         #if point == 30:
@@ -212,11 +195,7 @@ def startgame():
     Start_countdown()
     press()
 
-   
-
-# create balloon (tooltip) instance
-balloon = tkinter.tix.Balloon(root)
-    
+       
 #button to continue:
 button1 = Button(root, text="Continue",bg='#0052cc', fg='#ffffff', command = delete_entry)
 button1.place(relx=0.46, rely= 0.68, anchor=CENTER, height=30, width=100)
@@ -225,16 +204,11 @@ button1.place(relx=0.46, rely= 0.68, anchor=CENTER, height=30, width=100)
 button2 = Button(root, text=">> start >>",fg='#ffffff', bg='#14941C', command = startgame)
 button2.place(x = 280, y= 60, anchor=CENTER, height=30, width=100)
 
-
-# bind balloon to buttons
-balloon.bind_widget(button2, balloonmsg='start new game')
-
 menubar = tk.Menu(root)
 filemenu = Menu(menubar, tearoff=0)
-filemenu.add_command(label="New Game", command= startgame)
+filemenu.add_command(label="New_game", command= startgame)
 filemenu.add_separator()
 filemenu.add_command(label="Quit", command=close_window)
-
 
 
 menubar.add_cascade(label="File", menu=filemenu)
@@ -247,8 +221,7 @@ submenu.add_radiobutton(label="hard",  value = 10, command = lambda: clicked(10)
 menubar.add_cascade(label="Level", menu=submenu)
 
 helpmenu = Menu(menubar, tearoff=0)
-helpmenu.add_command(label="About", command=About)
-helpmenu.add_command(label="Guide", command=Game_Guide)
+helpmenu.add_command(label="About", command=donothing)
 menubar.add_cascade(label="Help", menu=helpmenu)
 
 
@@ -261,6 +234,24 @@ root.config(menu=menubar)
 
 clicked(2) # this make the difficult level to  be at easy, ie. value = 5
 
-root.mainloop() #end of window
+
+root.mainloop()
+
+
+
+    
+    
+if clicked(2):
+    inst_list = ["select number between 0 & 1", "select number between 0 & 4", "select number between 0 & 9"]
+    inst_label = tk.Label(root, text= inst_list[0], justify = CENTER, fg='#b3e6ff', bg='#14941C')
+    inst_label.config(font=("Helvetica 9 italic", 10))
+    inst_label.place(relx=0.46, rely= 0.68, height=30, width=200)
+
+elif clicked(5):
+    inst_label.configure(text="Process Started")
+    inst_label.update()
+    
+elif clicked(10) == 10:
+    xx = 2 
 
 

@@ -5,25 +5,24 @@ Created on Mon Jan 25 18:36:35 2021
 @author: aguboshimec
 """
 import tkinter as tk
-import tkinter.tix 
 import sys
 import time
 import numpy as np
-from tkinter import messagebox
 from random import randint
 from PIL import Image, ImageTk
 from tkinter import *
+from tkinter import messagebox
 from tkinter import filedialog, Tk, Button, Canvas
 import tkinter.font as font
 
 
-root  = tix.Tk()
-root.title("#Take-Ah-Guess") #name of the window
-root.geometry('600x400') #size of window
-root.iconbitmap('WhatsAppDP.ico') #imports the logo
+root  = Tk()
+root.title("#Take-Ah-Guess")
+#root.iconbitmap('WhatsAppDP.ico') #imports the logo
+root.geometry('600x400')
 root.resizable(False, False) #makes window non-resizable
 
-display = Entry(root, state=DISABLED) # make the window size unchangeable
+display = Entry(root, state=DISABLED)
 
 
 def About():
@@ -33,6 +32,7 @@ def About():
                                 'Kindly send your feedbacks to:\n'
                                 'e.agub@aol.com\n'
                                 'Thank you.\n' )
+
     
 def Game_Guide():
     tk.messagebox.showinfo("Game Guide ", 
@@ -42,6 +42,7 @@ def Game_Guide():
                                 ' meduim: between 0 & 4 \n'
                                 ' hard: between 0 & 9 \n'
                                 ' \n' )
+
 
 def on_closing():
     if messagebox.askokcancel("Exit", "Do you want to exit Game?",  icon = 'warning'):
@@ -56,7 +57,7 @@ def close_window():
        root.destroy()
        sys.exit()
     else:
-        tk.messagebox.showinfo('Back to Game',' You will return to the main window')  
+        tk.messagebox.showinfo('Back to Application',' You will return to the main window')  
 
 #add textbox: 
 myentry = Entry(root, text = "?", justify= CENTER, width = 3, font = ('Helvetica', 50), bg="#E3E7FA")
@@ -125,6 +126,7 @@ def press():
     b9.grid(row =7 , column = 2)
 
 press()
+
 
 t = 3
 def delete_entry():
@@ -212,11 +214,7 @@ def startgame():
     Start_countdown()
     press()
 
-   
-
-# create balloon (tooltip) instance
-balloon = tkinter.tix.Balloon(root)
-    
+       
 #button to continue:
 button1 = Button(root, text="Continue",bg='#0052cc', fg='#ffffff', command = delete_entry)
 button1.place(relx=0.46, rely= 0.68, anchor=CENTER, height=30, width=100)
@@ -226,15 +224,12 @@ button2 = Button(root, text=">> start >>",fg='#ffffff', bg='#14941C', command = 
 button2.place(x = 280, y= 60, anchor=CENTER, height=30, width=100)
 
 
-# bind balloon to buttons
-balloon.bind_widget(button2, balloonmsg='start new game')
 
 menubar = tk.Menu(root)
 filemenu = Menu(menubar, tearoff=0)
-filemenu.add_command(label="New Game", command= startgame)
+filemenu.add_command(label="New_game", command= startgame)
 filemenu.add_separator()
 filemenu.add_command(label="Quit", command=close_window)
-
 
 
 menubar.add_cascade(label="File", menu=filemenu)
@@ -261,6 +256,9 @@ root.config(menu=menubar)
 
 clicked(2) # this make the difficult level to  be at easy, ie. value = 5
 
-root.mainloop() #end of window
+
+root.mainloop()
+
+
 
 
